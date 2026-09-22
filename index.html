@@ -186,15 +186,66 @@ p{margin:0 0 14px}
   background:var(--forest);color:var(--cream);font-size:14px;letter-spacing:.04em;padding:10px 18px;border-radius:999px;transition:.3s;pointer-events:none}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
+/* ---------- tap-to-open cover ---------- */
+.cover{position:fixed;inset:0;z-index:90;background:var(--page);cursor:pointer;
+  -webkit-tap-highlight-color:transparent;overscroll-behavior:contain;
+  transition:opacity .85s ease,transform .85s cubic-bezier(.4,0,.2,1)}
+.cover.open{opacity:0;transform:scale(1.07);pointer-events:none}
+.cover-inner{position:relative;height:100%;max-width:520px;margin:0 auto;overflow:hidden;
+  background:var(--paper);box-shadow:0 0 60px rgba(20,30,20,.18)}
+.cover-sheet{position:absolute;inset:0;background-repeat:no-repeat;background-size:cover;background-position:top center}
+.cover-sheet.photo{background-image:url("assets/cover.jpg");background-position:center}
+.cover-body{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:0 13%;transition:transform .85s cubic-bezier(.4,0,.2,1)}
+.cover.open .cover-body{transform:translateY(-16px)}
+.cover-kicker{margin:0 0 6px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft)}
+.cover-names{margin:0;font-family:var(--script);font-size:clamp(46px,15vw,84px);line-height:1.08;color:var(--forest)}
+.cover-names .amp{display:block;font-size:.52em;color:var(--gold);line-height:.8;margin:-.06em 0}
+.cover-date{margin:4px 0 0;font-size:14px;letter-spacing:.32em;margin-right:-.32em;color:var(--forest)}
+.cover .rule{width:64px;height:10px;margin:14px auto 12px;display:block}
+.cover-cta{position:absolute;left:0;right:0;bottom:8%;display:flex;flex-direction:column;align-items:center;gap:14px}
+.seal{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;
+  background:radial-gradient(circle at 34% 28%,var(--gold-soft),var(--gold) 72%);
+  color:var(--paper);font-family:var(--script);font-size:25px;line-height:1;padding-bottom:7px;
+  box-shadow:0 8px 18px -10px rgba(60,45,20,.8),inset 0 0 0 1px rgba(255,255,255,.4)}
+.cover-tap{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--forest);
+  animation:tapBreathe 2.6s ease-in-out infinite}
+@keyframes tapBreathe{0%,100%{opacity:.55;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+html.sealed,html.sealed body{overflow:hidden;height:100%}
+
 @media (max-width:380px){
   section{padding-left:20px;padding-right:20px}
   .tl li{padding-left:32%}.tl li:nth-child(even){padding-right:32%}
   .countdown b{font-size:26px}
 }
-@media (prefers-reduced-motion: reduce){.pin-pulse,.hero-body *{animation:none!important}.btn{transition:none}}
+@media (prefers-reduced-motion: reduce){.pin-pulse,.hero-body *{animation:none!important}.btn{transition:none}
+  .cover,.cover-body{transition:none}.cover-tap{animation:none;opacity:.85}}
 </style>
 </head>
 <body>
+<noscript><style>.cover{display:none}</style></noscript>
+
+<div class="cover" id="cover" role="button" tabindex="0" aria-label="Tap to open the invitation">
+  <div class="cover-inner">
+    <div class="cover-sheet art" aria-hidden="true"></div>
+    <div class="cover-sheet photo" aria-hidden="true"></div>
+    <div class="cover-body">
+      <p class="cover-kicker">The wedding of</p>
+      <p class="cover-names">
+        <span data-bind="partner1"></span>
+        <span class="amp" aria-hidden="true">&amp;</span>
+        <span data-bind="partner2"></span>
+      </p>
+      <svg class="rule" viewBox="0 0 64 10" aria-hidden="true"><path d="M0 5H24M40 5H64" stroke="#b0905a"/><path d="M32 0l5 5-5 5-5-5z" fill="#b0905a"/></svg>
+      <p class="cover-date" data-bind="dateShort"></p>
+    </div>
+    <div class="cover-cta">
+      <span class="seal" id="seal" aria-hidden="true"></span>
+      <span class="cover-tap">Tap to open</span>
+    </div>
+  </div>
+</div>
+
 <main class="book">
 
   <header class="hero art" aria-label="Wedding invitation">
@@ -351,6 +402,26 @@ const CONFIG = {
 const $ = id => document.getElementById(id);
 function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),1800); }
 
+/* ---------- sealed cover: tap to open ---------- */
+(function(){
+  const cover = $("cover"), queue = [];
+  let opened = !cover;
+  window.whenOpen = fn => opened ? fn() : queue.push(fn);
+  if (!cover) return;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.documentElement.classList.add("sealed");
+  function open(){
+    if (opened) return;
+    opened = true;
+    document.documentElement.classList.remove("sealed");
+    cover.classList.add("open");
+    setTimeout(()=>cover.remove(), reduce ? 0 : 900);
+    queue.splice(0).forEach(fn=>fn());
+  }
+  cover.addEventListener("click", open);
+  cover.addEventListener("keydown", e=>{ if (e.key==="Enter"||e.key===" "){ e.preventDefault(); open(); } });
+})();
+
 /* ---------- content ---------- */
 (function(){
   const d = new Date(CONFIG.dateISO), pad = n => String(n).padStart(2,"0");
@@ -360,6 +431,7 @@ function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("sho
   document.querySelectorAll("[data-map]").forEach(a=>a.href=dir);
   document.title = `Wedding Invitation · ${CONFIG.partner1} & ${CONFIG.partner2}`;
   document.querySelector(".names").setAttribute("aria-label",`${CONFIG.partner1} and ${CONFIG.partner2}`);
+  if ($("seal")) $("seal").textContent = `${CONFIG.partner1[0]}&${CONFIG.partner2[0]}`;
 
   const pn = a => `<span>${a[0]}</span><span class="amp2">&amp;</span><span>${a[1]}</span>`;
   $("groomParents").innerHTML = pn(CONFIG.groomParents);
@@ -478,14 +550,14 @@ function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("sho
     if (el.closest(".split")) return;
     split(el,"words", isLatin(el) ? "45ms" : "110ms");
   });
-  document.querySelectorAll("main .btn, .countdown div, .rule, .map, .pcard").forEach(el=>el.classList.add("pop"));
+  document.querySelectorAll("main .btn, .countdown div, main .rule, .map, .pcard").forEach(el=>el.classList.add("pop"));
   document.querySelectorAll(".countdown div").forEach((el,i)=>el.style.setProperty("--base",(i*90)+"ms"));
   document.querySelectorAll(".pcard").forEach((el,i)=>el.style.setProperty("--base",(i*160)+"ms"));
 
   // hero plays on load, timed around the handwriting
   const hero = document.querySelector(".hero");
   const heroTimes = [[".lead",300],[".date",3300],[".when",3700]];
-  heroTimes.forEach(([sel,t])=>{ const el=hero.querySelector(sel); if(el){ el.querySelectorAll(".split,.pop").forEach(x=>x.classList.add("in")); setTimeout(()=>el.classList.add("in"),t); el.querySelectorAll(".split").forEach(x=>setTimeout(()=>x.classList.add("in"),t)); } });
+  whenOpen(()=>heroTimes.forEach(([sel,t])=>{ const el=hero.querySelector(sel); if(el){ el.querySelectorAll(".split,.pop").forEach(x=>x.classList.add("in")); setTimeout(()=>el.classList.add("in"),t); el.querySelectorAll(".split").forEach(x=>setTimeout(()=>x.classList.add("in"),t)); } }));
 
   const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }),
     {rootMargin:"0px 0px -10% 0px", threshold:.2});
@@ -533,8 +605,12 @@ function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("sho
   box.classList.remove("pending");
 
   // pen timing: each glyph's outline is drawn, then filled with ink
+  if (!reduce) glyphSets.forEach(paths=>paths.forEach(p=>{
+    const L = p.getTotalLength();
+    p.style.strokeDasharray = L; p.style.strokeDashoffset = L; p.style.fillOpacity = 0;
+  }));
   let t = 500;
-  glyphSets.forEach((paths,si)=>{
+  whenOpen(()=>glyphSets.forEach((paths,si)=>{
     paths.forEach(p=>{
       const L = p.getTotalLength(), dur = Math.min(900, 160 + L*1.1);
       if (reduce){ p.style.fillOpacity=1; p.style.strokeWidth=0; return; }
@@ -545,7 +621,7 @@ function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("sho
       t += dur*.45;
     });
     t += si===0 ? 250 : 150;
-  });
+  }));
 })();
 
 /* ---------- 3D scroll: every section rises into place ---------- */
