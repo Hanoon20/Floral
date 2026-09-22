@@ -10,9 +10,11 @@ The cover holds the page until the guest taps it: a closed envelope tied with a 
 On tap the bow unravels loop by loop, the ribbon slips off and falls, the flap lifts, and the
 camera flies into the envelope's mouth and dissolves into the invitation. The hero handwriting
 and reveal animations only start once that flight ends, so nothing plays behind the cover.
-Its backdrop is `assets/cover.jpg` when that file exists, and falls back to the invitation's own
-floral sheet when it does not — drop a new image at that path to swap the artwork, no code change
-needed. Reduced-motion visitors get the invitation immediately on tap.
+The envelope and the ribbon are drawn by the page, and are replaced by real artwork as soon as
+`assets/env-body.png`, `env-flap.png`, `env-band.png` and `env-bow.png` are all present — see
+`assets/README.md` for how to export those four layers. The backdrop behind the envelope works the
+same way with `assets/cover.jpg`. No code change is needed for either swap. Reduced-motion visitors
+get the invitation immediately on tap.
 
 Edit all details in the `CONFIG` object near the bottom of `index.html`.
 
