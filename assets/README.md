@@ -11,23 +11,29 @@ floral sheet is used when this file is missing.
 ## `env-body.png`, `env-flap.png`, `env-band.png`, `env-bow.png` — the envelope
 
 All four must be present, or the drawn envelope is used instead. They are stacked on top of
-each other, so they only line up if they are exported from **one** Canva design:
+each other at the same size, so they only line up if every file is the same **1080 × 780**
+canvas with its piece in its final position and transparent everywhere else.
 
-1. Build the whole closed envelope — body, flap, ribbon band, bow — in a single design,
-   canvas **1080 × 780 px**, background transparent.
-2. Export it four times as **PNG with a transparent background**, each time with only one
-   piece visible:
+A ready-made Canva design with one page per layer:
+**https://www.canva.com/d/dr-FJluE_2WrDZH**
 
-   | File | Contains | Sits at |
-   |---|---|---|
-   | `env-body.png` | envelope front only (no flap, no ribbon) | the whole canvas |
-   | `env-flap.png` | the closed flap triangle + wax seal | must touch the **top edge** — it hinges there |
-   | `env-band.png` | the ribbon band only | roughly 81–93% down the canvas |
-   | `env-bow.png` | the bow and its tails only | centred on the band, tails may hang past the bottom |
+| Canva page | Export as | Contains |
+|---|---|---|
+| 1 | — | reference image only, ignore it (or delete it) |
+| 2 `Preview (all layers)` | — | all four layers together, to check the look |
+| 3 `env-body` | `env-body.png` | envelope front and fold lines |
+| 4 `env-flap` | `env-flap.png` | the closed flap and the wax seal |
+| 5 `env-band` | `env-band.png` | the ribbon band |
+| 6 `env-bow` | `env-bow.png` | the bow, its knot and tails |
 
-3. Keep the middle of the envelope clear: the couple's names, "the wedding of" and the date
-   are drawn by the page over the artwork, between about **45% and 79%** of the canvas height.
-   The flap tip should sit above that, around 38%.
+Export: Share → Download → **PNG**, tick **Transparent background**, select pages 3–6, then
+rename each file to the name in the table.
 
-Do not crop the four exports differently — every file needs the same 1080 × 780 canvas with
-its piece in its final position, transparent everywhere else.
+Where things sit on the canvas, if you restyle or redraw it:
+
+- the flap folds along the **very top edge** of the canvas — the page hinges it there, so the
+  flap must start at y = 0
+- the names, "the wedding of" and the date are drawn by the page over the artwork, between
+  **45% and 79%** of the canvas height — keep that band of the envelope empty
+- the flap tip sits at about 35%, the ribbon band between 81% and 90%, and the bow's tails may
+  run to the bottom edge but not past it
