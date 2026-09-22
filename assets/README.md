@@ -35,35 +35,25 @@ Share → Download → MP4.
 Any size, portrait (9:16 works best). Used full-bleed behind the envelope; the page's own
 floral sheet is used when this file is missing.
 
-## `env-body.png`, `env-flap.png`, `env-band.png`, `env-bow.png` — the envelope
+## The envelope layers — cut from the photograph
 
-All four must be present, or the drawn envelope is used instead. They are stacked on top of
-each other at the same size, so they only line up if every file is the same **1080 × 780**
-canvas with its piece in its final position and transparent everywhere else.
+`envelope-reference.png` is the photograph everything else here comes from: an ivory envelope
+tied with a gold satin ribbon. It is not loaded by the page; it is the source the five layers
+were cut out of, so the cover animates a real envelope rather than a drawing.
 
-A ready-made Canva design with one page per layer:
-**https://www.canva.com/d/dr-FJluE_2WrDZH**
+| File | What it holds |
+|---|---|
+| `env-body.png` | the envelope with the ribbon painted out |
+| `env-flap.png` | the top flap, cut along its own fold lines — it hinges on the canvas's top edge |
+| `env-mouth.png` | the inside, shaded from the fold down; revealed as the flap lifts |
+| `env-band.png` | the ribbon band, its stripe carried across where the bow sat |
+| `env-bow.png` | the bow, its knot, the wax seal and the tails |
 
-| Canva page | Export as | Contains |
-|---|---|---|
-| 1 | — | reference image only, ignore it (or delete it) |
-| 2 `Preview (all layers)` | — | all four layers together, to check the look |
-| 3 `env-body` | `env-body.png` | envelope front and fold lines |
-| 4 `env-flap` | `env-flap.png` | the closed flap and the wax seal |
-| 5 `env-band` | `env-band.png` | the ribbon band |
-| 6 `env-bow` | `env-bow.png` | the bow, its knot and tails |
+All five share one **812 × 586** canvas (a 1082 × 781 crop of the photograph, scaled down) with
+the envelope's top edge at y = 0, so they stack into the original picture exactly. The band sits
+at 45–57% of the canvas height and the flap's tip at 69%, which is why the couple's names sit
+below the envelope rather than on it.
 
-Export: Share → Download → **PNG**, tick **Transparent background**, select pages 3–6, then
-rename each file to the name in the table.
-
-`env-preview.png` and `envelope-reference.png` are kept here for reference only — the page
-never loads them.
-
-Where things sit on the canvas, if you restyle or redraw it:
-
-- the flap folds along the **very top edge** of the canvas — the page hinges it there, so the
-  flap must start at y = 0
-- the names, "the wedding of" and the date are drawn by the page over the artwork, between
-  **45% and 79%** of the canvas height — keep that band of the envelope empty
-- the flap tip sits at about 35%, the ribbon band between 81% and 90%, and the bow's tails may
-  run to the bottom edge but not past it
+Replacing them: keep one shared canvas, the same 1.385 : 1 shape, the fold along the very top
+edge, and transparency everywhere else. Any layer missing and the page falls back to the
+envelope it draws itself; `cover.mp4` still overrides all of it when present.
