@@ -158,6 +158,11 @@ p{margin:0 0 14px}
 .sign{font-family:var(--script);font-size:52px;line-height:1.2;color:var(--forest);margin:0}
 .base{aspect-ratio:1080/330;background-position:bottom center;margin-top:6px;
   -webkit-mask-image:linear-gradient(transparent,#000 30%);mask-image:linear-gradient(transparent,#000 30%)}
+.credit{text-align:center;padding:14px 24px 26px;margin:0;font-size:12px;font-weight:300;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);opacity:.8}
+.credit a{color:var(--gold);text-decoration:none;
+  border-bottom:1px solid color-mix(in srgb,var(--gold) 45%,transparent);padding-bottom:1px}
+.credit a:hover{color:var(--forest)}
 
 /* ---------- 3D scroll ---------- */
 .book{perspective:1100px}
@@ -305,6 +310,8 @@ p{margin:0 0 14px}
     </div>
     <div class="base art" aria-hidden="true"></div>
   </footer>
+
+  <p class="credit">Crafted by <a href="https://dearday.lk" target="_blank" rel="noopener">dearday.lk</a></p>
 
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
