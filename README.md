@@ -10,7 +10,10 @@ The cover holds the page until the guest taps it: a closed envelope tied with a 
 On tap the bow unravels loop by loop, the ribbon slips off and falls, the flap lifts, and the
 camera flies into the envelope's mouth and dissolves into the invitation. The hero handwriting
 and reveal animations only start once that flight ends, so nothing plays behind the cover.
-The envelope and the ribbon are drawn by the page, and are replaced by real artwork as soon as
+A film of the envelope takes over the whole cover when `assets/cover.mp4` is present: it plays
+full screen on tap and the invitation dissolves in as it ends.
+
+Without it, the envelope and the ribbon are drawn by the page, and are replaced by real artwork as soon as
 `assets/env-body.png`, `env-flap.png`, `env-band.png` and `env-bow.png` are all present — see
 `assets/README.md` for how to export those four layers. The backdrop behind the envelope works the
 same way with `assets/cover.jpg`. No code change is needed for either swap. Reduced-motion visitors

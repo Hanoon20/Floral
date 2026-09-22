@@ -3,6 +3,33 @@
 Everything here is optional. The invitation draws its own envelope and ribbon, and only
 swaps in real artwork when the matching file is present.
 
+## `cover.mp4` — a real film of the envelope (takes over everything)
+
+Drop a video in and the cover becomes that film: the guest sees its first frame with
+**Tap to open** under it, taps, the film plays full screen, and the invitation dissolves in as
+it ends. Nothing else is drawn over it. If the file is missing or cannot play, the envelope
+below is used instead — nothing breaks.
+
+- **`cover.mp4`** — H.264, portrait **1080 × 1920**, **4–8 seconds**, **no audio track**,
+  ideally under ~6 MB (it is downloaded before the guest taps). Encode with
+  `-pix_fmt yuv420p -movflags +faststart` so phones can play it inline.
+- **`cover.webm`** *(optional)* — VP9 version; browsers that support it use it first.
+- **`cover-poster.jpg`** *(optional)* — the first frame, shown while the video loads.
+
+Two things make the join invisible:
+
+1. **Start** on the closed envelope, held still for a moment — that frame is the cover.
+2. **End** light and close-up: the last half second should be nearly filled with cream paper,
+   because the invitation (also cream) fades in from it.
+
+Phones only autoplay muted video, so the film plays silently — put nothing in it that depends
+on sound.
+
+Where to get one: film it on a phone (a real envelope and ribbon, plain surface, shot from
+straight above, steady, untie slowly and lift the flap), or build it in Canva from a stock
+clip — Elements → Videos → "envelope opening" / "ribbon untie" — in a 1080 × 1920 design, then
+Share → Download → MP4.
+
 ## `cover.jpg` — the backdrop behind the envelope
 
 Any size, portrait (9:16 works best). Used full-bleed behind the envelope; the page's own

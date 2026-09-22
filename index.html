@@ -196,6 +196,13 @@ p{margin:0 0 14px}
 .cover-sheet.photo{background-image:url("assets/cover.jpg");background-position:center}
 .cover-stage{position:absolute;inset:0;display:grid;place-items:center;padding:0 7%}
 
+/* a real film of the envelope takes over when assets/cover.mp4 is there */
+.cover-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  display:none;background:var(--paper);transition:transform 1.1s ease-in,opacity .5s ease}
+.cover.has-video .cover-video{display:block}
+.cover.has-video .cover-stage{display:none}
+.cover.finishing .cover-video{transform:scale(1.07)}
+
 .env{position:relative;width:100%;max-width:360px;container-type:inline-size;
   transform-origin:50% 21%;transition:transform 1.3s cubic-bezier(.52,0,.72,.32)}
 .cover.zoom .env{transform:scale(9)}
@@ -262,6 +269,8 @@ html.sealed,html.sealed body{overflow:hidden;height:100%}
   <div class="cover-inner">
     <div class="cover-sheet art" aria-hidden="true"></div>
     <div class="cover-sheet photo" aria-hidden="true"></div>
+
+    <video class="cover-video" id="coverVideo" muted playsinline preload="auto" poster="assets/cover-poster.jpg" disablepictureinpicture aria-hidden="true"></video>
 
     <div class="cover-stage">
       <div class="env">
@@ -494,6 +503,17 @@ function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("sho
   window.whenOpen = fn => opened ? fn() : queue.push(fn);
   if (!cover) return;
 
+  // a film of the envelope (assets/cover.mp4) takes over everything once it can play
+  const video = $("coverVideo");
+  (function(){
+    if (!video) return;
+    video.addEventListener("loadeddata", ()=>cover.classList.add("has-video"), {once:true});
+    [["assets/cover.webm","video/webm"],["assets/cover.mp4","video/mp4"]].forEach(([src,type])=>{
+      const s = document.createElement("source"); s.src = src; s.type = type; video.appendChild(s);
+    });
+    video.load();
+  })();
+
   // real artwork (assets/env-*.png) takes over the drawn envelope once every layer loads
   (function(){
     const layers = [...cover.querySelectorAll("[data-layer]")];
@@ -516,10 +536,33 @@ function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("sho
     queue.splice(0).forEach(fn=>fn());
   }
 
+  function finish(delay){
+    at(delay, ()=>{ cover.classList.add("gone"); release(); });
+    at(delay + 600, ()=>{ cover.remove(); timers.forEach(clearTimeout); });
+  }
+
   function open(){
-    if (cover.classList.contains("opening")) return;
+    if (cover.classList.contains("opening")) {
+      if (video && cover.classList.contains("has-video") && !video.paused) video.currentTime = video.duration || 0;
+      return;
+    }
     cover.classList.add("opening");
     if (reduce){ release(); cover.remove(); return; }
+
+    if (cover.classList.contains("has-video")){
+      cover.classList.add("playing");
+      let ending = false;
+      const end = () => {
+        if (ending) return;
+        ending = true;
+        cover.classList.add("finishing");
+        finish(500);
+      };
+      video.addEventListener("ended", end, {once:true});
+      at(((isFinite(video.duration) && video.duration ? video.duration : 8) * 1000) + 900, end);
+      video.play().catch(end);
+      return;
+    }
 
     // 1. the bow unravels — each loop retracts along its own path
     cover.querySelectorAll(".bow-loop").forEach((el,i)=>{
@@ -538,8 +581,7 @@ function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("sho
     at(880,  ()=>cover.classList.add("drop"));      // 2. the ribbon slips off and falls
     at(1680, ()=>cover.classList.add("unsealed"));  // 3. the flap lifts open
     at(2180, ()=>cover.classList.add("zoom"));      // 4. fly into the envelope
-    at(3050, ()=>{ cover.classList.add("gone"); release(); });
-    at(3650, ()=>{ cover.remove(); timers.forEach(clearTimeout); });
+    finish(3050);
   }
 
   cover.addEventListener("click", open);
