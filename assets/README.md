@@ -29,6 +29,9 @@ A ready-made Canva design with one page per layer:
 Export: Share → Download → **PNG**, tick **Transparent background**, select pages 3–6, then
 rename each file to the name in the table.
 
+`env-preview.png` and `envelope-reference.png` are kept here for reference only — the page
+never loads them.
+
 Where things sit on the canvas, if you restyle or redraw it:
 
 - the flap folds along the **very top edge** of the canvas — the page hinges it there, so the

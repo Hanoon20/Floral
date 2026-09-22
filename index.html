@@ -198,14 +198,22 @@ p{margin:0 0 14px}
 
 .env{position:relative;width:100%;max-width:360px;container-type:inline-size;
   transform-origin:50% 21%;transition:transform 1.3s cubic-bezier(.52,0,.72,.32)}
-.cover.zoom .env{transform:scale(12)}
+.cover.zoom .env{transform:scale(9)}
 .env-svg{display:block;width:100%;height:auto;overflow:visible}
 .env.has-art .env-svg{visibility:hidden}
 .env-art{position:absolute;inset:0;opacity:0;transition:opacity .3s ease;pointer-events:none}
 .env.has-art .env-art{opacity:1}
 .ea{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
-.ea-flap{transform-box:border-box;transform-origin:50% 0;transition:transform .75s cubic-bezier(.36,.02,.2,1)}
+.ea-flap{transform-box:border-box;transform-origin:50% 0;
+  transition:transform .75s cubic-bezier(.36,.02,.2,1),opacity .5s ease}
+.cover.zoom .has-art .ea-flap{opacity:0}
 .cover.unsealed .has-art .ea-flap{transform:perspective(900px) rotateX(-166deg)}
+.has-art .ea-body{filter:drop-shadow(0 10px 14px rgba(47,70,50,.26))}
+.ea-mouth{clip-path:polygon(2.2% 0,50% 35.4%,97.8% 0);
+  background:linear-gradient(#b3996d,#e4d6b6 55%,#f6ecd9)}
+.has-art .ea-flap{filter:drop-shadow(0 4px 6px rgba(47,70,50,.16))}
+.has-art .ea-bow{filter:drop-shadow(0 4px 5px rgba(47,70,50,.2))}
+.env.has-art .env-text{top:41%}
 .cover.opening .has-art .ea-bow{animation:bowLoosen .8s cubic-bezier(.4,0,.3,1) forwards}
 .cover.drop .has-art .ea-ribbon{animation:ribbonFall 1.15s cubic-bezier(.5,0,.85,.45) forwards}
 @keyframes bowLoosen{
@@ -303,6 +311,7 @@ html.sealed,html.sealed body{overflow:hidden;height:100%}
 
         <div class="env-art" aria-hidden="true">
           <img class="ea ea-body" data-layer="body" alt="">
+          <div class="ea ea-mouth"></div>
           <img class="ea ea-flap" data-layer="flap" alt="">
           <div class="ea ea-ribbon">
             <img class="ea ea-band" data-layer="band" alt="">
