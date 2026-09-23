@@ -13,7 +13,6 @@ below is used instead — nothing breaks.
 - **`cover.mp4`** — H.264, portrait **1080 × 1920**, **4–8 seconds**, **no audio track**,
   ideally under ~6 MB (it is downloaded before the guest taps). Encode with
   `-pix_fmt yuv420p -movflags +faststart` so phones can play it inline.
-- **`cover.webm`** *(optional)* — VP9 version; browsers that support it use it first.
 - **`cover-poster.jpg`** *(optional)* — the first frame, shown while the video loads.
 
 Two things make the join invisible:

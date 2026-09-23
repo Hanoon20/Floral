@@ -508,9 +508,8 @@ function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("sho
   (function(){
     if (!video) return;
     video.addEventListener("loadeddata", ()=>cover.classList.add("has-video"), {once:true});
-    [["assets/cover.webm","video/webm"],["assets/cover.mp4","video/mp4"]].forEach(([src,type])=>{
-      const s = document.createElement("source"); s.src = src; s.type = type; video.appendChild(s);
-    });
+    const s = document.createElement("source"); s.src = "assets/cover.mp4"; s.type = "video/mp4";
+    video.appendChild(s);
     video.load();
   })();
 
