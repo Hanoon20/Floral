@@ -78,7 +78,14 @@ p{margin:0 0 14px}
 .invite{padding-top:40px}
 .invite .big{font-size:19px;line-height:1.65}
 .countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:360px;margin:12px auto 28px}
-.countdown div{padding:14px 4px 8px;border:1px solid color-mix(in srgb,var(--gold) 55%,transparent);border-radius:36px 36px 6px 6px}
+.countdown div{padding:14px 4px 8px;border-radius:36px 36px 6px 6px;
+  background:linear-gradient(180deg,#fdf9f0 0%,#f9f2e3 55%,#f3e9d3 100%);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb,var(--gold) 55%,transparent),
+    inset 0 1.5px 0 rgba(255,255,255,.7),
+    0 1px 2px rgba(47,70,50,.08),
+    0 7px 12px -7px rgba(47,70,50,.34),
+    0 16px 26px -16px rgba(47,70,50,.44)}
 .countdown b{display:block;font-weight:300;font-size:30px;line-height:1;color:var(--forest);font-variant-numeric:tabular-nums}
 .countdown span{font-size:12px;letter-spacing:.08em;color:var(--ink-soft)}
 
@@ -251,7 +258,22 @@ p{margin:0 0 14px}
 .env-names .amp{color:var(--gold)}
 .env-date{margin:4px 0 0;font-size:3.4cqi;letter-spacing:.3em;margin-right:-.3em;color:var(--forest)}
 
+.cover-copy{display:none;position:absolute;left:7%;right:7%;top:11%;text-align:center;
+  padding:20px 0 24px;transition:opacity .5s ease;
+  background:radial-gradient(72% 118% at 50% 50%,rgba(250,244,230,.88),rgba(250,244,230,0) 72%)}
+.cover.has-video .cover-copy{display:block}
+.cover.opening .cover-copy{opacity:0}
+.cc-kicker{margin:0;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft)}
+.cc-lead{margin:2px 0 4px;font-family:var(--script);font-size:26px;line-height:1.1;color:var(--ink-soft)}
+.cc-names{margin:0;font-family:var(--script);font-size:clamp(40px,12.5vw,62px);line-height:1.05;color:var(--forest);
+  text-shadow:0 2px 14px rgba(252,247,235,.9)}
+.cc-names .amp{color:var(--gold)}
+.cc-date{margin:8px 0 0;font-size:13px;letter-spacing:.3em;margin-right:-.3em;color:var(--forest)}
+.cc-where{margin:4px 0 0;font-size:13px;letter-spacing:.04em;color:var(--ink-soft)}
+
 .cover-cta{position:absolute;left:0;right:0;bottom:7%;text-align:center;transition:opacity .35s ease}
+.cover.has-video .cover-cta{bottom:auto;top:40%}
+.cover.has-video .cover-tap{text-shadow:0 1px 10px rgba(252,247,235,.95)}
 .cover.opening .cover-cta{opacity:0}
 .cover-tap{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--forest);
   animation:tapBreathe 2.6s ease-in-out infinite}
@@ -348,6 +370,14 @@ html.sealed,html.sealed body{overflow:hidden;height:100%}
           <p class="env-date" data-bind="dateShort"></p>
         </div>
       </div>
+    </div>
+
+    <div class="cover-copy">
+      <p class="cc-kicker">You are invited</p>
+      <p class="cc-lead">to the wedding of</p>
+      <p class="cc-names"><span data-bind="partner1"></span> <span class="amp" aria-hidden="true">&amp;</span> <span data-bind="partner2"></span></p>
+      <p class="cc-date" data-bind="dateShort"></p>
+      <p class="cc-where" data-bind="venueName"></p>
     </div>
 
     <div class="cover-cta"><span class="cover-tap">Tap to open</span></div>
