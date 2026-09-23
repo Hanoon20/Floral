@@ -13,7 +13,6 @@ below is used instead — nothing breaks.
 - **`cover.mp4`** — H.264, portrait **1080 × 1920**, **4–8 seconds**, **no audio track**,
   ideally under ~6 MB (it is downloaded before the guest taps). Encode with
   `-pix_fmt yuv420p -movflags +faststart` so phones can play it inline.
-- **`cover-poster.jpg`** *(optional)* — the first frame, shown while the video loads.
 
 Two things make the join invisible:
 
@@ -28,11 +27,6 @@ Where to get one: film it on a phone (a real envelope and ribbon, plain surface,
 straight above, steady, untie slowly and lift the flap), or build it in Canva from a stock
 clip — Elements → Videos → "envelope opening" / "ribbon untie" — in a 1080 × 1920 design, then
 Share → Download → MP4.
-
-## `cover.jpg` — the backdrop behind the envelope
-
-Any size, portrait (9:16 works best). Used full-bleed behind the envelope; the page's own
-floral sheet is used when this file is missing.
 
 ## The envelope layers — cut from the photograph
 

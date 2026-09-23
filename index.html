@@ -193,7 +193,6 @@ p{margin:0 0 14px}
 .cover-inner{position:relative;height:100%;max-width:520px;margin:0 auto;overflow:hidden;
   background:var(--paper);box-shadow:0 0 60px rgba(20,30,20,.18)}
 .cover-sheet{position:absolute;inset:0;background-repeat:no-repeat;background-size:cover;background-position:top center}
-.cover-sheet.photo{background-image:url("assets/cover.jpg");background-position:center}
 .cover-stage{position:absolute;inset:0;display:grid;place-items:center;padding:0 7%}
 
 /* a real film of the envelope takes over when assets/cover.mp4 is there */
@@ -268,9 +267,8 @@ html.sealed,html.sealed body{overflow:hidden;height:100%}
 <div class="cover" id="cover" role="button" tabindex="0" aria-label="Tap to open the invitation">
   <div class="cover-inner">
     <div class="cover-sheet art" aria-hidden="true"></div>
-    <div class="cover-sheet photo" aria-hidden="true"></div>
 
-    <video class="cover-video" id="coverVideo" muted playsinline preload="auto" poster="assets/cover-poster.jpg" disablepictureinpicture aria-hidden="true"></video>
+    <video class="cover-video" id="coverVideo" muted playsinline preload="auto" disablepictureinpicture aria-hidden="true"></video>
 
     <div class="cover-stage">
       <div class="env">
