@@ -30,9 +30,10 @@ Share → Download → MP4.
 
 ## The envelope layers — cut from the photograph
 
-`envelope-reference.png` is the photograph everything else here comes from: an ivory envelope
-tied with a gold satin ribbon. It is not loaded by the page; it is the source the five layers
-were cut out of, so the cover animates a real envelope rather than a drawing.
+These five layers were cut out of a photograph of an ivory envelope tied with a gold satin
+ribbon, so the cover animates a real envelope rather than a drawing. The photograph itself is
+not shipped — it lives in the repository's history (`assets/envelope-reference.png`, removed in
+the commit that trimmed unused assets) if the layers ever need re-cutting.
 
 | File | What it holds |
 |---|---|
@@ -49,4 +50,5 @@ below the envelope rather than on it.
 
 Replacing them: keep one shared canvas, the same 1.385 : 1 shape, the fold along the very top
 edge, and transparency everywhere else. Any layer missing and the page falls back to the
-envelope it draws itself; `cover.mp4` still overrides all of it when present.
+envelope it draws itself. These layers are only fetched when `cover.mp4` cannot play, so a
+working film costs nothing extra.

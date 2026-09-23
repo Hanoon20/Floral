@@ -13,10 +13,14 @@ and reveal animations only start once that flight ends, so nothing plays behind 
 A film of the envelope takes over the whole cover when `assets/cover.mp4` is present: it plays
 full screen on tap and the invitation dissolves in as it ends.
 
-Without it, the cover animates a real photographed envelope: `assets/env-*.png` are layers cut
-out of `assets/envelope-reference.png` — body, flap, inside, ribbon band and bow — so the bow
-loosens, the ribbon slides off and falls, the flap lifts and the camera flies into the opening.
-If those layers are missing the page draws its own envelope instead. See `assets/README.md`.
+If the film cannot play, the cover falls back to a real photographed envelope: `assets/env-*.png`
+are layers cut out of a photograph — body, flap, inside, ribbon band and bow — so the bow loosens,
+the ribbon slides off and falls, the flap lifts and the camera flies into the opening. Those layers
+are only fetched when they are needed, and if they are missing too the page draws its own envelope.
+See `assets/README.md`.
+
+Once the hero has finished writing itself, a scroll cue fades in at the foot of the screen and
+retires as soon as the guest scrolls.
 
 Edit all details in the `CONFIG` object near the bottom of `index.html`.
 
