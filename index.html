@@ -258,7 +258,7 @@ p{margin:0 0 14px}
 .env-names .amp{color:var(--gold)}
 .env-date{margin:4px 0 0;font-size:3.4cqi;letter-spacing:.3em;margin-right:-.3em;color:var(--forest)}
 
-.cover-copy{display:none;position:absolute;left:7%;right:7%;top:11%;text-align:center;
+.cover-copy{display:none;position:absolute;left:7%;right:7%;top:23%;text-align:center;
   padding:20px 0 24px;transition:opacity .5s ease;
   background:radial-gradient(72% 118% at 50% 50%,rgba(250,244,230,.88),rgba(250,244,230,0) 72%)}
 .cover.has-video .cover-copy{display:block}
@@ -268,8 +268,6 @@ p{margin:0 0 14px}
 .cc-names{margin:0;font-family:var(--script);font-size:clamp(40px,12.5vw,62px);line-height:1.05;color:var(--forest);
   text-shadow:0 2px 14px rgba(252,247,235,.9)}
 .cc-names .amp{color:var(--gold)}
-.cc-date{margin:8px 0 0;font-size:13px;letter-spacing:.3em;margin-right:-.3em;color:var(--forest)}
-.cc-where{margin:4px 0 0;font-size:13px;letter-spacing:.04em;color:var(--ink-soft)}
 
 .cover-cta{position:absolute;left:0;right:0;bottom:7%;text-align:center;transition:opacity .35s ease}
 .cover.has-video .cover-cta{bottom:auto;top:40%}
@@ -376,8 +374,6 @@ html.sealed,html.sealed body{overflow:hidden;height:100%}
       <p class="cc-kicker">You are invited</p>
       <p class="cc-lead">to the wedding of</p>
       <p class="cc-names"><span data-bind="partner1"></span> <span class="amp" aria-hidden="true">&amp;</span> <span data-bind="partner2"></span></p>
-      <p class="cc-date" data-bind="dateShort"></p>
-      <p class="cc-where" data-bind="venueName"></p>
     </div>
 
     <div class="cover-cta"><span class="cover-tap">Tap to open</span></div>
@@ -655,7 +651,7 @@ function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("sho
   $("brideParents").innerHTML = pn(CONFIG.brideParents);
   $("timeline").innerHTML = CONFIG.program.map(([t,e])=>`<li><i class="dot" aria-hidden="true"></i><time>${t}</time><span class="ev">${e}</span></li>`).join("");
 
-  const duaMsg = `${CONFIG.duaArabic}\n\n${CONFIG.duaTamil}`;
+  const duaMsg = `${CONFIG.duaArabic}\n\n${CONFIG.partner1} & ${CONFIG.partner2} · ${vals.dateShort}`;
   $("duaLink").href = `https://wa.me/${CONFIG.duaWhatsapp}?text=${encodeURIComponent(duaMsg)}`;
   const g = s => new Date(s).toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"");
   $("calLink").href = "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(`Wedding of ${CONFIG.partner1} & ${CONFIG.partner2}`)
